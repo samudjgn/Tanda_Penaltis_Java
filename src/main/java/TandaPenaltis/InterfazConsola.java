@@ -24,4 +24,12 @@ public class InterfazConsola {
             return new Arquero(nombre, dorsal, habilidad);
         }
     }
+
+    public int pedirDorsalJugador(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Digite el dorsal del jugador que va a patear: ");
+
+        return sc.nextInt();
+    }
 }

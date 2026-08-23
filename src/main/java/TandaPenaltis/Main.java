@@ -3,6 +3,8 @@
  */
 
 package TandaPenaltis;
+import Dominio.SimuladorTanda;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.HashMap;
@@ -27,81 +29,24 @@ public class Main {
         GestorPlantilla plantilla = new GestorPlantilla();
 
         plantilla.agregarJugador(miDelantero);
+        plantilla.agregarJugador(miMediocampista);
+        plantilla.agregarJugador(miArquero);
 
-
-
-
-            HashMap<Integer, Jugador> plantillaEquipo = new HashMap<>();
-            
-            plantillaEquipo.put(dorsalDelantero, miDelantero);
-            plantillaEquipo.put(dorsalMediocampista, miMediocampista);
-            plantillaEquipo.put(dorsalArquero, miArquero);
-    
-            System.out.println("-------------------------------------------------------------");
-            System.out.println("----------------EL DT DEBE ESCOGER AL COBRADOR---------------");
-            System.out.println("-------------------------------------------------------------");
-            
-            System.out.println("Dorsales disponibles: ");
-            System.out.println("Delantero: "+ miDelantero.getNombre()+". Con el dorsal: #"+ dorsalDelantero);
-            System.out.println("Mediocampista: "+ miMediocampista.getNombre()+". Con el dorsal: #"+dorsalMediocampista);
-            
-            System.out.println("Digite el dorsal del jugador que va a patear: ");
-            int dorsalElegido = sc.nextInt();
-            sc.nextLine();
-            
-            Jugador mejorTirador = plantillaEquipo.get(dorsalElegido);
+            int dorsalElegido = consola.pedirDorsalJugador();
+            Jugador mejorTirador = plantilla.buscarJugador(dorsalElegido);
             String nombreTirador;
             
             if(mejorTirador != null){
-                nombreTirador = mejorTirador.getNombre(); 
-                System.out.println("El DT ha escogido a "+nombreTirador+" para patear el penalti!!");
+                System.out.println("El DT ha escogido a "+mejorTirador.getNombre()+" para patear el penalti!!");
             }   else{
-                System.out.println("¡Dorsal no encontrado! Por defecto, el Delantero " + nombreDelantero + " tomará la responsabilidad.");
+                System.out.println("¡Dorsal no encontrado! Por defecto, el Delantero " + miDelantero.getNombre() + " tomará la responsabilidad.");
                 mejorTirador = miDelantero;
-                nombreTirador = nombreDelantero;
             }
+
+            SimuladorTanda arbitro = new SimuladorTanda();
+            arbitro.ejecutarTanda(mejorTirador, miArquero);
            
-            int goles=0;
-            int atajadas=0;
-            int palos = 0;
-            
-        for(int i = 1; i<=5; i++){
-            
-            System.out.println("Cobro "+i+"!!");
-            
-            int poderShotFinal = mejorTirador.ejecutarAccion();
-            int poderAtajadaFinal = miArquero.ejecutarAccion(); 
-            
-            if(poderShotFinal>poderAtajadaFinal){
-                System.out.println("GOOOL DE "+nombreTirador+"!!");
-                goles++;
-                
-                mejorTirador.celebrarExito();
-                miArquero.lamentarFracaso();
-            }else if(poderShotFinal<poderAtajadaFinal){
-                System.out.println("ATAJADON DE "+nombreArquero+"!!" );
-                atajadas++;
-                
-                miArquero.celebrarExito();
-                mejorTirador.lamentarFracaso();
-            }else{
-                System.out.println("Palo!!");
-                palos++;
-                
-                mejorTirador.lamentarFracaso();
-            }
-        }
-        
-            System.out.println("\n--- RESULTADOS ---");
-            System.out.println("Goles: " + goles + " | Atajadas: " + atajadas + " | Palos: " + palos);
-            
-                    if (goles > atajadas) {
-                System.out.println("¡Gana el pateador!");
-            } else if (atajadas > goles) {
-                System.out.println("¡Gana el Arquero!");
-            } else {
-                System.out.println("¡Es un empate!");
-            }
+
         
         int habilidad = 0;
         boolean datoCorrecto = false;
