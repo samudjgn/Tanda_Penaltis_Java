@@ -1,13 +1,15 @@
 package Dominio;
 
 import TandaPenaltis.Jugador;
+import TandaPenaltis.RegistroTanda;
 
 public class SimuladorTanda {
 
-    public void ejecutarTanda (Jugador tirador, Jugador portero){
+    public RegistroTanda ejecutarTanda (Jugador tirador, Jugador portero){
         int goles=0;
         int atajadas=0;
         int palos = 0;
+
         String nombreTirador = tirador.getNombre();
         String nombrePortero = portero.getNombre();
 
@@ -48,5 +50,9 @@ public class SimuladorTanda {
         } else {
             System.out.println("¡Es un empate!");
         }
+
+        RegistroTanda recibo = new RegistroTanda(tirador, portero, goles, atajadas);
+
+        return recibo;
     }
 }
