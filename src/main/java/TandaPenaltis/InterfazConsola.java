@@ -32,4 +32,12 @@ public class InterfazConsola {
 
         return sc.nextInt();
     }
+
+    public boolean preguntaOtraTanda (){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("¿Desea jugar de nuevo? Ingrese (S/N)");
+        String respuesta = sc.next();
+
+        return respuesta.equalsIgnoreCase("S");
+    }
 }

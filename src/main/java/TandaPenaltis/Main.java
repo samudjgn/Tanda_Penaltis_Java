@@ -25,6 +25,9 @@ public class Main {
 
         Jugador miArquero = consola.pedirDatosJugador("Arquero");
 
+        ArrayList<RegistroTanda> historialPartidos = new ArrayList<>();
+
+        boolean seguirJugando;
 
         GestorPlantilla plantilla = new GestorPlantilla();
 
@@ -32,20 +35,32 @@ public class Main {
         plantilla.agregarJugador(miMediocampista);
         plantilla.agregarJugador(miArquero);
 
+        do {
+
             int dorsalElegido = consola.pedirDorsalJugador();
             Jugador mejorTirador = plantilla.buscarJugador(dorsalElegido);
             String nombreTirador;
-            
-            if(mejorTirador != null){
-                System.out.println("El DT ha escogido a "+mejorTirador.getNombre()+" para patear el penalti!!");
-            }   else{
+
+            if (mejorTirador != null) {
+                System.out.println("El DT ha escogido a " + mejorTirador.getNombre() + " para patear el penalti!!");
+            } else {
                 System.out.println("¡Dorsal no encontrado! Por defecto, el Delantero " + miDelantero.getNombre() + " tomará la responsabilidad.");
                 mejorTirador = miDelantero;
             }
 
             SimuladorTanda arbitro = new SimuladorTanda();
-            arbitro.ejecutarTanda(mejorTirador, miArquero);
 
+            RegistroTanda reciboFinal = arbitro.ejecutarTanda(mejorTirador, miArquero);
+
+            historialPartidos.add(reciboFinal);
+
+            int golesdelPrimerJuego = historialPartidos.get(0).getGoles();
+
+            System.out.println("Los goles del primer juego fueron: " + golesdelPrimerJuego);
+
+            seguirJugando = consola.preguntaOtraTanda();
+
+        }while(seguirJugando);
     } 
 }
 
