@@ -3,11 +3,10 @@
  */
 
 package TandaPenaltis;
-import Dominio.SimuladorTanda;
+import Database.ConexionDB;
+import Dominio.PenaltyShotooutSimulator;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.HashMap;
 
 /**
  *
@@ -17,50 +16,52 @@ public class Main {
 
     public static void main(String[] args) {
 
-        InterfazConsola consola = new InterfazConsola();
+        ConexionDB.getConnection();
 
-        Jugador miDelantero = consola.pedirDatosJugador("Delantero");
+        ConsoleUI console = new ConsoleUI();
 
-        Jugador miMediocampista = consola.pedirDatosJugador("Mediocampista");
+        Player myStriker = console.requestPlayerData("Striker");
 
-        Jugador miArquero = consola.pedirDatosJugador("Arquero");
+        Player myMidfielder = console.requestPlayerData("Midfielder");
 
-        ArrayList<RegistroTanda> historialPartidos = new ArrayList<>();
+        Player myGoalkeeper = console.requestPlayerData("Goalkeeper");
 
-        boolean seguirJugando;
+        ArrayList<PenaltyShotooutRegister> matchHistory = new ArrayList<>();
 
-        GestorPlantilla plantilla = new GestorPlantilla();
+        boolean keepPlaying;
 
-        plantilla.agregarJugador(miDelantero);
-        plantilla.agregarJugador(miMediocampista);
-        plantilla.agregarJugador(miArquero);
+        RosterManager roster = new RosterManager();
+
+        roster.addPlayer(myStriker);
+        roster.addPlayer(myMidfielder);
+        roster.addPlayer(myGoalkeeper);
 
         do {
 
-            int dorsalElegido = consola.pedirDorsalJugador();
-            Jugador mejorTirador = plantilla.buscarJugador(dorsalElegido);
-            String nombreTirador;
+            int dorsalPicked = console.requestPlayerDorsal();
+            Player bestKicker = roster.searchPlayer(dorsalPicked);
+            String nameKicker;
 
-            if (mejorTirador != null) {
-                System.out.println("El DT ha escogido a " + mejorTirador.getNombre() + " para patear el penalti!!");
+            if (bestKicker != null) {
+                System.out.println("El DT ha escogido a " + bestKicker.getName() + " para patear el penalti!!");
             } else {
-                System.out.println("¡Dorsal no encontrado! Por defecto, el Delantero " + miDelantero.getNombre() + " tomará la responsabilidad.");
-                mejorTirador = miDelantero;
+                System.out.println("¡Dorsal no encontrado! Por defecto, el Striker " + myStriker.getName() + " tomará la responsabilidad.");
+                bestKicker = myStriker;
             }
 
-            SimuladorTanda arbitro = new SimuladorTanda();
+            PenaltyShotooutSimulator referee = new PenaltyShotooutSimulator();
 
-            RegistroTanda reciboFinal = arbitro.ejecutarTanda(mejorTirador, miArquero);
+            PenaltyShotooutRegister finalRecord = referee.runPenaltyShotoout(bestKicker, myGoalkeeper);
 
-            historialPartidos.add(reciboFinal);
+            matchHistory.add(finalRecord);
 
-            int golesdelPrimerJuego = historialPartidos.get(0).getGoles();
+            int firstgameGoals = matchHistory.get(0).getGoals();
 
-            System.out.println("Los goles del primer juego fueron: " + golesdelPrimerJuego);
+            System.out.println("Los goles del primer juego fueron: " + firstgameGoals);
 
-            seguirJugando = consola.preguntaOtraTanda();
+            keepPlaying = console.askAnotherRound();
 
-        }while(seguirJugando);
+        }while(keepPlaying);
     } 
 }
 

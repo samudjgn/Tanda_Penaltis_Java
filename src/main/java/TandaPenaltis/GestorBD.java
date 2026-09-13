@@ -3,23 +3,24 @@ package TandaPenaltis;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import Database.ConexionDB;
 
 public class GestorBD {
 
-    public static void guardarJugador(Jugador jugador) {
+    public static void guardarJugador(Player player) {
         String sql = "INSERT INTO Jugador (nombre_jugador, dorsal_jugador, habilidad_jugador) VALUES (?, ?, ?)";
 
-        try (Connection conexion = ConexionDB.obtenerConexion();
+        try (Connection conexion = ConexionDB.getConnection();
              PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
-            pstmt.setString(1, jugador.getNombre());
-            pstmt.setInt(2, jugador.getDorsal());
-            pstmt.setInt(3, jugador.getHabilidad());
+            pstmt.setString(1, player.getName());
+            pstmt.setInt(2, player.getnumberShirt());
+            pstmt.setInt(3, player.getlevelSkill());
 
-            int filasInsertadas = pstmt.executeUpdate();
+            int insertedRows = pstmt.executeUpdate();
 
-            if (filasInsertadas > 0) {
-                System.out.println("¡" + jugador.getNombre() + " sincronizado con la base de datos!");
+            if (insertedRows > 0) {
+                System.out.println("¡" + player.getName() + " sincronizado con la base de datos!");
             }
 
         } catch (SQLException e) {

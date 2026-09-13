@@ -1,28 +1,28 @@
 package TandaPenaltis;
 
-public class RegistroTanda {
+public class PenaltyShotooutRegister {
 
-    private Jugador tirador;
-    private Jugador portero;
+    private Player tirador;
+    private Player portero;
     private int goles;
     private int atajadas;
 
-    public RegistroTanda(Jugador tirador, Jugador portero, int goles, int atajadas) {
+    public PenaltyShotooutRegister(Player tirador, Player portero, int goles, int atajadas) {
         this.tirador = tirador;
         this.portero = portero;
         this.goles = goles;
         this.atajadas = atajadas;
     }
 
-    public Jugador getTirador() {
+    public Player getTirador() {
         return tirador;
     }
 
-    public Jugador getPortero() {
+    public Player getPortero() {
         return portero;
     }
 
-    public int getGoles() {
+    public int getGoals() {
         return goles;
     }
 
@@ -30,11 +30,11 @@ public class RegistroTanda {
         return atajadas;
     }
 
-    public void setTirador(Jugador tirador) {
+    public void setTirador(Player tirador) {
         this.tirador = tirador;
     }
 
-    public void setPortero(Jugador portero) {
+    public void setPortero(Player portero) {
         this.portero = portero;
     }
 

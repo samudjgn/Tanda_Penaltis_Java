@@ -5,9 +5,9 @@
 package TandaPenaltis;
 
 
-public interface ReaccionPenalti {
+public interface ReactionPenalty {
     
-    void celebrarExito();
+    void celebrateSuccess();
     
-    void lamentarFracaso();
+    void lamentFailure();
 }
