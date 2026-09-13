@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public class InterfazConsola {
 
+    private Scanner sc = new Scanner(System.in);
+
     public Jugador pedirDatosJugador(String nombrePosicion){
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("Ingrese el nombre del "+nombrePosicion);
         String nombre = sc.nextLine();
@@ -15,6 +16,8 @@ public class InterfazConsola {
 
         System.out.println("Ingrese el nivel de habilidad del "+nombrePosicion);
         int habilidad = sc.nextInt();
+
+        sc.nextLine();
 
         if (nombrePosicion.equalsIgnoreCase("Delantero")) {
             return new Delantero(nombre, dorsal, habilidad);
@@ -26,7 +29,6 @@ public class InterfazConsola {
     }
 
     public int pedirDorsalJugador(){
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("Digite el dorsal del jugador que va a patear: ");
 
@@ -34,7 +36,6 @@ public class InterfazConsola {
     }
 
     public boolean preguntaOtraTanda (){
-        Scanner sc = new Scanner(System.in);
         System.out.println("¿Desea jugar de nuevo? Ingrese (S/N)");
         String respuesta = sc.next();
 
