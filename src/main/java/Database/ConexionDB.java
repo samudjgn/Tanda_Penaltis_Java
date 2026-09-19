@@ -13,10 +13,8 @@ public class ConexionDB {
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            // Invoca al Driver que inyectaste en el pom.xml de Maven
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establece el puente físico con el servidor
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("¡Conexión exitosa a la base de datos de tu torneo!");
 
