@@ -52,12 +52,13 @@ public class Main {
             PenaltyShotooutSimulator referee = new PenaltyShotooutSimulator();
 
             PenaltyShotooutRegister finalRecord = referee.runPenaltyShotoout(bestKicker, myGoalkeeper);
-
             matchHistory.add(finalRecord);
 
             int firstgameGoals = matchHistory.get(0).getGoals();
 
             System.out.println("Los goles del primer juego fueron: " + firstgameGoals);
+
+            DatabaseManager.saveMatchRecord(finalRecord);
 
             keepPlaying = console.askAnotherRound();
 
