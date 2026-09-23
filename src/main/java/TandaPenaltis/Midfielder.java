@@ -2,16 +2,16 @@ package TandaPenaltis;
 
 public class Midfielder extends Player implements ReactionPenalty {
     
-    public Midfielder(String name, int numberShirt, int levelSkill) {
-    super(name, numberShirt, levelSkill);
+    public Midfielder(String name, int jerseyNumber, int skillLevel) {
+    super(name, jerseyNumber, skillLevel);
     }
     
     @Override
     public int executeAction(){
-        int precisionShoot = getlevelSkill() + 7;
+        int precisionShoot = getSkillLevel() + 7;
         
         System.out.println("El nivel de precision del mediocampista es de "+ precisionShoot);
-        System.out.println("El dorsal del mediocampista es: "+ getnumberShirt());
+        System.out.println("El dorsal del mediocampista es: "+ getJerseyNumber());
         
         return precisionShoot;
     }

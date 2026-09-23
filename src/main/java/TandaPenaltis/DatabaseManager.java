@@ -5,17 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import Database.ConexionDB;
 
-public class GestorBD {
+public class DatabaseManager {
 
-    public static void guardarJugador(Player player) {
+    public static void savePlayer(Player player) {
         String sql = "INSERT INTO Jugador (nombre_jugador, dorsal_jugador, habilidad_jugador) VALUES (?, ?, ?)";
 
         try (Connection conexion = ConexionDB.getConnection();
              PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
             pstmt.setString(1, player.getName());
-            pstmt.setInt(2, player.getnumberShirt());
-            pstmt.setInt(3, player.getlevelSkill());
+            pstmt.setInt(2, player.getJerseyNumber());
+            pstmt.setInt(3, player.getSkillLevel());
 
             int insertedRows = pstmt.executeUpdate();
 

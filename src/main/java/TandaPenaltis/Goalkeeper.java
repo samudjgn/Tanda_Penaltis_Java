@@ -10,8 +10,8 @@ package TandaPenaltis;
  */
 public class Goalkeeper extends Player implements ReactionPenalty {
     
-    public Goalkeeper(String name, int numberShirt, int levelSkill) {
-        super(name, numberShirt, levelSkill);
+    public Goalkeeper(String name, int jerseyNumber, int skillLevel) {
+        super(name, jerseyNumber, skillLevel);
     }
 
     @Override
@@ -19,8 +19,8 @@ public class Goalkeeper extends Player implements ReactionPenalty {
         
         int luckyFactor = (int) (Math.random() * 20);
         
-        int finalReflexes = getlevelSkill() + luckyFactor;
-        System.out.println("Nivel de portero: "+ getlevelSkill());
+        int finalReflexes = getSkillLevel() + luckyFactor;
+        System.out.println("Nivel de portero: "+ getSkillLevel());
         System.out.println("Factor de suerte: "+luckyFactor);
         return finalReflexes;
     }

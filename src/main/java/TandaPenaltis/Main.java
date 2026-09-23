@@ -38,7 +38,7 @@ public class Main {
 
         do {
 
-            int dorsalPicked = console.requestPlayerDorsal();
+            int dorsalPicked = console.RequestJerseyNumber();
             Player bestKicker = roster.searchPlayer(dorsalPicked);
             String nameKicker;
 

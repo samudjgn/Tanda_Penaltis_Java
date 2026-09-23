@@ -2,47 +2,47 @@ package TandaPenaltis;
 
 public class PenaltyShotooutRegister {
 
-    private Player tirador;
-    private Player portero;
-    private int goles;
-    private int atajadas;
+    private Player kicker;
+    private Player goalkeeper;
+    private int goals;
+    private int saves;
 
-    public PenaltyShotooutRegister(Player tirador, Player portero, int goles, int atajadas) {
-        this.tirador = tirador;
-        this.portero = portero;
-        this.goles = goles;
-        this.atajadas = atajadas;
+    public PenaltyShotooutRegister(Player kicker, Player goalkeeper, int goals, int saves) {
+        this.kicker = kicker;
+        this.goalkeeper = goalkeeper;
+        this.goals = goals;
+        this.saves = saves;
     }
 
-    public Player getTirador() {
-        return tirador;
+    public Player getKicker() {
+        return kicker;
     }
 
-    public Player getPortero() {
-        return portero;
+    public Player getGoalkeeper() {
+        return goalkeeper;
     }
 
     public int getGoals() {
-        return goles;
+        return goals;
     }
 
-    public int getAtajadas() {
-        return atajadas;
+    public int getSaves() {
+        return saves;
     }
 
-    public void setTirador(Player tirador) {
-        this.tirador = tirador;
+    public void setKicker(Player kicker) {
+        this.kicker = kicker;
     }
 
-    public void setPortero(Player portero) {
-        this.portero = portero;
+    public void setGoalkeeper(Player goalkeeper) {
+        this.goalkeeper = goalkeeper;
     }
 
-    public void setGoles(int goles) {
-        this.goles = goles;
+    public void setGoals(int goals) {
+        this.goals = goals;
     }
 
     public void setatajadas(int atajadas) {
-        this.atajadas = atajadas;
+        this.saves = saves;
     }
 }

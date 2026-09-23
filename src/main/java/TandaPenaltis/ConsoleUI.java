@@ -28,7 +28,7 @@ public class ConsoleUI {
         }
     }
 
-    public int requestPlayerDorsal(){
+    public int RequestJerseyNumber(){
 
         System.out.println("Digite el dorsal del jugador que va a patear: ");
 
@@ -37,8 +37,8 @@ public class ConsoleUI {
 
     public boolean askAnotherRound(){
         System.out.println("¿Desea jugar de nuevo? Ingrese (S/N)");
-        String respuesta = sc.next();
+        String request = sc.next();
 
-        return respuesta.equalsIgnoreCase("S");
+        return request.equalsIgnoreCase("S");
     }
 }

@@ -10,8 +10,9 @@ package TandaPenaltis;
  */
 public class Striker extends Player implements ReactionPenalty {
     
-    public Striker(String name, int numberShirt, int levelSkill) {
-        super(name, numberShirt, levelSkill);
+    public Striker(String name, int jerseyNumber, int levelSkill) {
+
+        super(name, jerseyNumber, levelSkill);
     }
       
    @Override
@@ -19,8 +20,8 @@ public class Striker extends Player implements ReactionPenalty {
        
        int luckyFactor = (int) (Math.random()* 20);
        
-       int finalShoot = getlevelSkill() + luckyFactor;
-       System.out.println("Nivel de habilidad del delantero: "+ getlevelSkill());
+       int finalShoot = getSkillLevel() + luckyFactor;
+       System.out.println("Nivel de habilidad del delantero: "+ getSkillLevel());
        System.out.println("Nivel de suerte: "+luckyFactor);
        return finalShoot;
    }

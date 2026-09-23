@@ -6,7 +6,7 @@ public class RosterManager {
     private HashMap<Integer, Player> roster = new HashMap<>();
 
     public void addPlayer(Player player){
-        roster.put(player.getnumberShirt(), player);
+        roster.put(player.getJerseyNumber(), player);
     }
 
     public Player searchPlayer(int dorsalBusqueda){

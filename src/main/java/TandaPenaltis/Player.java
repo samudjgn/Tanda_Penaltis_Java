@@ -10,15 +10,15 @@ package TandaPenaltis;
  */
 public abstract class Player implements ReactionPenalty {
     private String name;
-    private int numberShirt;
-    private int levelSkill; //Habilidad base del 1 al 100
+    private int jerseyNumber;
+    private int skillLevel; //Habilidad base del 1 al 100
     
     public abstract int executeAction();
     
-    public Player(String name, int numberShirt, int levelSkill){
-        this.levelSkill = levelSkill;
+    public Player(String name, int jerseyNumber, int skillLevel){
+        this.skillLevel = skillLevel;
         this.name = name;
-        this.numberShirt = numberShirt;
+        this.jerseyNumber = jerseyNumber;
     }
     
     public String getName(){
@@ -29,19 +29,19 @@ public abstract class Player implements ReactionPenalty {
         this.name = name;
     }
     
-    public int getnumberShirt(){
-        return numberShirt;
+    public int getJerseyNumber(){
+        return jerseyNumber;
     }
     
-    public void setnumberShirt(int numberShirt){
-        this.numberShirt = numberShirt;
+    public void setjerseyNumber(int numberShirt){
+        this.jerseyNumber = jerseyNumber;
     }
     
-    public int getlevelSkill(){
-        return levelSkill;
+    public int getSkillLevel(){
+        return skillLevel;
     }
     
     public void setlevelSkill(int levelSkill){
-        this.levelSkill = levelSkill;
+        this.skillLevel = skillLevel;
     }
 }
