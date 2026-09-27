@@ -12,6 +12,8 @@ public abstract class Player implements ReactionPenalty {
     private String name;
     private int jerseyNumber;
     private int skillLevel; //Habilidad base del 1 al 100
+
+    private int dbId; // Para almacenar el ID generado por MySQL
     
     public abstract int executeAction();
     
@@ -40,8 +42,16 @@ public abstract class Player implements ReactionPenalty {
     public int getSkillLevel(){
         return skillLevel;
     }
-    
+
     public void setlevelSkill(int levelSkill){
         this.skillLevel = skillLevel;
+    }
+
+    public int getDbId() {
+        return dbId;
+    }
+
+    public void setDbId(int dbId) {
+        this.dbId = dbId;
     }
 }

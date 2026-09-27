@@ -21,10 +21,13 @@ public class Main {
         ConsoleUI console = new ConsoleUI();
 
         Player myStriker = console.requestPlayerData("Striker");
+        DatabaseManager.savePlayer(myStriker);
 
         Player myMidfielder = console.requestPlayerData("Midfielder");
+        DatabaseManager.savePlayer(myMidfielder);
 
         Player myGoalkeeper = console.requestPlayerData("Goalkeeper");
+        DatabaseManager.savePlayer(myGoalkeeper);
 
         ArrayList<PenaltyShotooutRegister> matchHistory = new ArrayList<>();
 
