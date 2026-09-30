@@ -11,7 +11,6 @@ package TandaPenaltis;
 public class Striker extends Player implements ReactionPenalty {
     
     public Striker(String name, int jerseyNumber, int levelSkill) {
-
         super(name, jerseyNumber, levelSkill);
     }
       

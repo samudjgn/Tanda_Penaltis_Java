@@ -31,6 +31,7 @@ public class Main {
 
         ArrayList<PenaltyShotooutRegister> matchHistory = new ArrayList<>();
 
+
         boolean keepPlaying;
 
         RosterManager roster = new RosterManager();
@@ -62,7 +63,7 @@ public class Main {
             System.out.println("Los goles del primer juego fueron: " + firstgameGoals);
 
             DatabaseManager.saveMatchRecord(finalRecord);
-
+            DatabaseManager.getMatchHistory();
             keepPlaying = console.askAnotherRound();
 
         }while(keepPlaying);

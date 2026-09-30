@@ -3,7 +3,7 @@ package TandaPenaltis;
 public class Midfielder extends Player implements ReactionPenalty {
     
     public Midfielder(String name, int jerseyNumber, int skillLevel) {
-    super(name, jerseyNumber, skillLevel);
+        super(name, jerseyNumber, skillLevel);
     }
     
     @Override

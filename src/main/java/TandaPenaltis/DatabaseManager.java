@@ -2,6 +2,7 @@ package TandaPenaltis;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import Database.ConexionDB;
 import Dominio.PenaltyShotooutSimulator;
@@ -55,6 +56,29 @@ public class DatabaseManager {
 
         } catch (SQLException e) {
             System.out.println("No se pudo guardar en MySQL (modo memoria local activo). Detalle: " + e.getMessage());
+        }
+    }
+
+    public static void getMatchHistory() {
+        String sql = "SELECT * FROM Historial_Tanda";
+
+        try(Connection conexion = ConexionDB.getConnection();
+            PreparedStatement pstmt = conexion.prepareStatement(sql)){
+
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            int idKicker = rs.getInt("id_tirador");
+            int idGoalkeeper = rs.getInt("id_arquero");
+            int goals = rs.getInt("goles");
+            int saves = rs.getInt("atajadas");
+
+            System.out.println("Tirador (ID: " + idKicker + ") vs Arquero (ID: " + idGoalkeeper +
+                    ") | Goles: " + goals + " - Atajadas: " + saves);
+        }
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo leer los datos de la tanda. Detalle: " + e.getMessage());
         }
     }
 }
