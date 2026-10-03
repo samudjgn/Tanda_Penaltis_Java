@@ -60,7 +60,10 @@ public class DatabaseManager {
     }
 
     public static void getMatchHistory() {
-        String sql = "SELECT * FROM Historial_Tanda";
+        String sql = "SELECT t.nombre_jugador AS nombre_tirador, h.goles, a.nombre_jugador AS nombre_arquero, h.atajadas " +
+                "FROM Historial_Tanda AS h " +
+                "INNER JOIN Jugador AS t ON h.id_tirador = t.id_jugador " +
+                "INNER JOIN Jugador AS a ON h.id_arquero = a.id_jugador;";
 
         try(Connection conexion = ConexionDB.getConnection();
             PreparedStatement pstmt = conexion.prepareStatement(sql)){
@@ -68,15 +71,15 @@ public class DatabaseManager {
         ResultSet rs = pstmt.executeQuery();
 
         while (rs.next()) {
-            int idKicker = rs.getInt("id_tirador");
-            int idGoalkeeper = rs.getInt("id_arquero");
+            String kickerName = rs.getString("nombre_tirador");
             int goals = rs.getInt("goles");
+            String gkName = rs.getString("nombre_arquero");
             int saves = rs.getInt("atajadas");
 
-            System.out.println("Tirador (ID: " + idKicker + ") vs Arquero (ID: " + idGoalkeeper +
-                    ") | Goles: " + goals + " - Atajadas: " + saves);
+            System.out.println("Tirador: " + kickerName + " - Goles: " + goals + " | vs | Arquero : "
+                    + gkName + " - Atajadas: " + saves);
         }
-
+            System.out.println("-------------------------------------\n");
         } catch (SQLException e) {
             System.out.println("No se pudo leer los datos de la tanda. Detalle: " + e.getMessage());
         }
