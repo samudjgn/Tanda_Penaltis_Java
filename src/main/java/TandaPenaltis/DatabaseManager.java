@@ -9,12 +9,33 @@ import Dominio.PenaltyShotooutSimulator;
 
 public class DatabaseManager {
 
-    public static void savePlayer(Player player) {
+    public static void savePenaltyShotoout(PenaltyShotooutRegister match) {
+        try (Connection conexion = ConexionDB.getConnection()) {
+            conexion.setAutoCommit(false);
+            try {
+                savePlayer(match.getKicker(), conexion);
+                savePlayer(match.getGoalkeeper(), conexion);
+                saveMatchRecord(match, conexion);
+                conexion.commit();
+                System.out.println("Datos correctamente insertados");
+            } catch (SQLException e) {
+                try {
+                    conexion.rollback();
+                } catch (SQLException ex) {
+                    e.addSuppressed(ex);
+                }
+                throw e;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al insertar datos: " + e.getMessage());
+        }
+    }
+
+    public static void savePlayer(Player player, Connection conexion) throws SQLException {
         String sql = "INSERT INTO Jugador (nombre_jugador, dorsal_jugador, habilidad_jugador) VALUES (?, ?, ?)";
 
         // Le agregamos Statement.RETURN_GENERATED_KEYS al final
-        try (Connection conexion = ConexionDB.getConnection();
-             PreparedStatement pstmt = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement pstmt = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, player.getName());
             pstmt.setInt(2, player.getJerseyNumber());
@@ -32,16 +53,13 @@ public class DatabaseManager {
                 }
             }
 
-        } catch (SQLException e) {
-            System.out.println("No se pudo guardar en MySQL. Detalle: " + e.getMessage());
         }
     }
 
-    public static void saveMatchRecord(PenaltyShotooutRegister match) {
+    public static void saveMatchRecord(PenaltyShotooutRegister match, Connection conexion) throws SQLException {
         String sql = "INSERT INTO Historial_Tanda (id_tirador, id_arquero, goles, atajadas) VALUES (?, ?, ?, ?)";
 
-        try (Connection conexion = ConexionDB.getConnection();
-             PreparedStatement pstmt = conexion.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
 
             pstmt.setInt(1, match.getKicker().getDbId());
             pstmt.setInt(2, match.getGoalkeeper().getDbId());
@@ -54,8 +72,6 @@ public class DatabaseManager {
                 System.out.println("¡Resultado del partido guardado en el historial de la base de datos!");
             }
 
-        } catch (SQLException e) {
-            System.out.println("No se pudo guardar en MySQL (modo memoria local activo). Detalle: " + e.getMessage());
         }
     }
 
