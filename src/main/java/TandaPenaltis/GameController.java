@@ -5,6 +5,7 @@ import Database.ConexionDB;
 import Dominio.PenaltyShotooutSimulator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameController {
 
@@ -14,18 +15,24 @@ public class GameController {
 
         public void startGame(){
 
-            ConexionDB.getConnection();
-            DatabaseManager.getMatchHistory();
+
+            List<MatchHistoryDTO> history = DatabaseManager.getMatchHistory();
+
+            if(history.isEmpty()){
+                System.out.println("No historical matches found");
+            }
+
+            for(MatchHistoryDTO historical : history){
+                System.out.println("Tirador: " + historical.getKickerName() + " - Goles: " + historical.getGoals() + " | vs | Arquero : "
+                        + historical.getGoalkeeperName() + " - Atajadas: " + historical.getSaves());
+            }
+            System.out.println(" ");
 
             Player myStriker = console.requestPlayerData("Striker");
-            DatabaseManager.savePlayer(myStriker);
 
             Player myMidfielder = console.requestPlayerData("Midfielder");
-            DatabaseManager.savePlayer(myMidfielder);
 
             Player myGoalkeeper = console.requestPlayerData("Goalkeeper");
-            DatabaseManager.savePlayer(myGoalkeeper);
-
 
             boolean keepPlaying;
 
@@ -57,7 +64,7 @@ public class GameController {
 
                 System.out.println("Los goles del primer juego fueron: " + firstgameGoals);
 
-                DatabaseManager.saveMatchRecord(finalRecord);
+                DatabaseManager.savePenaltyShotoout(finalRecord);
                 keepPlaying = console.askAnotherRound();
 
             }while(keepPlaying);
